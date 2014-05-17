@@ -1,0 +1,828 @@
+    '.source.xquery':
+  'xqDoc':
+    'prefix': '(:'
+    'body': '(:~
+    \n : ${1}
+    \n :
+    \n : ${2: @param }
+    \n : ${3: @return}
+    \n :)'
+  'pragma':
+    'prefix': '(#'
+    'body': '(# ${1} #)
+    \n{${2}}'
+  '..':
+  	'prefix': '..'
+  	'body': 'parent::node()'
+  '.':
+  	'prefix': '.'
+  	'body': 'self::node()'
+  '//':
+  	'prefix': '//'
+  	'body': '/descendant-or-self::node()/'
+  '/':
+  	'prefix': '/'
+  	'body': 'root()'
+  '@':
+  	'prefix': '@'
+  	'body': 'attribute'
+  'an':
+  	'prefix': 'an'
+  	'body': 'ancestor::'
+  'as':
+  	'prefix': 'as'
+  	'body': 'ancestor-or-self::'
+  'ch':
+    'prefix': 'ch'
+    'body': 'child::'
+  'de':
+    'prefix': 'de'
+    'body': 'descendant::'
+  'ds':
+    'prefix': 'ds'
+    'body': 'descendant-or-self::'
+  'fo':
+    'prefix': 'fo'
+    'body': 'following::'
+  'fs':
+    'prefix': 'fs'
+    'body': 'following-sibling::'
+  'pa':
+    'prefix': 'pa'
+    'body': 'parent::'
+  'pr':
+    'prefix': 'pr'
+    'body': 'preceding::'
+  'ps':
+    'prefix': 'ps'
+    'body': 'preceding-sibling::'
+  'transform':
+  	'prefix': 'copy'
+  	'body': 'copy $${1} :=
+    \nmodify ${2}
+    \nreturn ${3}'
+  'delete':
+    'prefix': 'delete'
+    'body': 'delete nodes '
+  'insert':
+    'prefix': 'insert'
+    'body': 'insert nodes ${1}${2: as first/as last/before/after}
+    \ninto '
+  'rename':
+    'prefix': 'rename'
+    'body': 'rename node ${1} as'
+  'replace':
+    'prefix': 'replace'
+    'body': 'replace ${1:value of }node ${2} with'
+  'cr':
+  	'prefix': 'cr'
+  	'body': '&xD;'
+  'tab':
+    'prefix': 'tab'
+    'body': '&#x9;'
+  'nl':
+    'prefix': 'nl'
+    'body': '&xA;'
+  'version':
+    'prefix': 'version'
+    'body': 'xquery version "${1:1.0}"${2: encoding "utf-8"};'
+  'declnl':
+    'prefix': 'declnl'
+    'body': 'declare option output:item-separator "${1:&#xA;}";'
+  'declns':
+    'prefix': 'declns'
+    'body': 'declare namespace ${1} = "${2}";'
+  'import':
+    'prefix': 'import'
+    'body': 'import module namespace ${1} = "${2}";'
+  'module':
+    'prefix': 'module'
+    'body': 'module namespace ${1:_} = "${2}";'
+  'variable':
+    'prefix': 'variable'
+    'body': 'declare variable \$${1} ${2:as item()* ${3:external}}:= ${4};'
+  'ct':
+  	'prefix': 'ct'
+  	'body': 'contains text'
+  'for':
+  	'prefix': 'for'
+  	'body': 'for \$${1:x} in ${2}
+    \nreturn ${3}'
+  'inline-function':
+    'prefix': 'fn'
+    'body': 'function ${2}(${3}) {${4}}'
+  'function block':
+  	'prefix': 'function'
+  	'body': 'declare ${1}function ${2}(${3}) {
+    \n\t${4}
+    \n};'
+  'group':
+  	'prefix': 'group'
+  	'body': 'group by \$${1}'
+  'let':
+  	'prefix': 'let'
+  	'body': 'let \$${1} :=
+    \nreturn'
+  'ns':
+  	'prefix': 'ns'
+  	'body': 'namespace'
+  'order':
+  	'prefix': 'order'
+  	'body': 'order by '
+  'every':
+  	'prefix': 'every'
+  	'body': 'every \$${1:x} in ${2}
+    \nsatisfies'
+  'some':
+    'prefix': 'some'
+    'body': 'some \$${1:x} in ${2}
+    \nsatisfies'
+  'switch':
+  	'prefix': 'switch'
+  	'body': 'switch(${1})
+    \ncase ${2} return ${3}
+    \ndefault return ${4}'
+  'try':
+  	'prefix': 'try'
+  	'body': 'try {
+    \n${1}
+    \n} catch * {
+    \n${2}
+    \n}'
+  'typeswitch':
+  	'prefix': 'typeswitch'
+  	'body': 'typeswitch(${1})
+    \ncase return
+    \ndefault return'
+  'fn:node-name#1':
+  	'prefix': 'node-name'
+  	'body': 'fn:node-name(${1:\$arg as node()?})${2: as xs:QName?}'
+  'fn:nilled#1':
+  	'prefix': 'nilled'
+  	'body': 'fn:nilled(${1:\$arg as node()?})${2: as xs:boolean}'
+  'fn:string#1':
+  	'prefix': 'string'
+  	'body': 'fn:string(${1:\$arg as item()?})${2: as xs:string}'
+  'fn:data#1':
+  	'prefix': 'data'
+  	'body': 'fn:data(${1:\$arg as item()*})${2: as xs:anyAtomicType*}'
+  'fn:base-uri#1':
+  	'prefix': 'base-uri'
+  	'body': 'fn:base-uri(${1:\$arg as node()?})${2: as xs:anyURI?}'
+  'fn:document-uri#1':
+  	'prefix': 'document-uri'
+  	'body': 'fn:document-uri(${1:\$arg as node()?})${2: as xs:anyURI?}'
+  'fn:error#3':
+  	'prefix': 'error'
+  	'body': 'fn:error(${1:\$code as xs:QName?}, ${2:\$description as xs:string}, ${3:\$error-object as item()*})${4: as none}'
+  'fn:trace#2':
+  	'prefix': 'trace'
+  	'body': 'fn:trace(${1:\$value as item()*}, ${2:\$label as xs:string})${3: as item()*}'
+  'op:numeric-add#2':
+  	'prefix': 'numeric-add'
+  	'body': 'op:numeric-add(${1:\$arg1 as numeric}, ${2:\$arg2 as numeric})${3: as numeric}'
+  'op:numeric-subtract#2':
+  	'prefix': 'numeric-subtract'
+  	'body': 'op:numeric-subtract(${1:\$arg1 as numeric}, ${2:\$arg2 as numeric})${3: as numeric}'
+  'op:numeric-multiply#2':
+  	'prefix': 'numeric-multiply'
+  	'body': 'op:numeric-multiply(${1:\$arg1 as numeric}, ${2:\$arg2 as numeric})${3: as numeric}'
+  'op:numeric-divide#2':
+  	'prefix': 'numeric-divide'
+  	'body': 'op:numeric-divide(${1:\$arg1 as numeric}, ${2:\$arg2 as numeric})${3: as numeric}'
+  'op:numeric-integer-divide#2':
+  	'prefix': 'numeric-integer-divide'
+  	'body': 'op:numeric-integer-divide(${1:\$arg1 as numeric}, ${2:\$arg2 as numeric})${3: as xs:integer}'
+  'op:numeric-mod#2':
+  	'prefix': 'numeric-mod'
+  	'body': 'op:numeric-mod(${1:\$arg1 as numeric}, ${2:\$arg2 as numeric})${3: as numeric}'
+  'op:numeric-unary-plus#1':
+  	'prefix': 'numeric-unary-plus'
+  	'body': 'op:numeric-unary-plus(${1:\$arg as numeric})${2: as numeric}'
+  'op:numeric-unary-minus#1':
+  	'prefix': 'numeric-unary-minus'
+  	'body': 'op:numeric-unary-minus(${1:\$arg as numeric})${2: as numeric}'
+  'op:numeric-equal#2':
+  	'prefix': 'numeric-equal'
+  	'body': 'op:numeric-equal(${1:\$arg1 as numeric}, ${2:\$arg2 as numeric})${3: as xs:boolean}'
+  'op:numeric-less-than#2':
+  	'prefix': 'numeric-less-than'
+  	'body': 'op:numeric-less-than(${1:\$arg1 as numeric}, ${2:\$arg2 as numeric})${3: as xs:boolean}'
+  'op:numeric-greater-than#2':
+  	'prefix': 'numeric-greater-than'
+  	'body': 'op:numeric-greater-than(${1:\$arg1 as numeric}, ${2:\$arg2 as numeric})${3: as xs:boolean}'
+  'fn:abs#1':
+  	'prefix': 'abs'
+  	'body': 'fn:abs(${1:\$arg as numeric?})${2: as numeric?}'
+  'fn:ceiling#1':
+  	'prefix': 'ceiling'
+  	'body': 'fn:ceiling(${1:\$arg as numeric?})${2: as numeric?}'
+  'fn:floor#1':
+  	'prefix': 'floor'
+  	'body': 'fn:floor(${1:\$arg as numeric?})${2: as numeric?}'
+  'fn:round#2':
+  	'prefix': 'round'
+  	'body': 'fn:round(${1:\$arg as numeric?}, ${2:\$precision as xs:integer})${3: as numeric?}'
+  'fn:round-half-to-even#2':
+  	'prefix': 'round-half-to-even'
+  	'body': 'fn:round-half-to-even(${1:\$arg as numeric?}, ${2:\$precision as xs:integer})${3: as numeric?}'
+  'fn:number#1':
+  	'prefix': 'number'
+  	'body': 'fn:number(${1:\$arg as xs:anyAtomicType?})${2: as xs:double}'
+  'fn:format-integer#3':
+  	'prefix': 'format-integer'
+  	'body': 'fn:format-integer(${1:\$value as xs:integer?}, ${2:\$picture as xs:string}, ${3:\$lang as xs:string?})${4: as xs:string}'
+  'fn:format-number#3':
+  	'prefix': 'format-number'
+  	'body': 'fn:format-number(${1:\$value as numeric?}, ${2:\$picture as xs:string}, ${3:\$decimal-format-name as xs:string?})${4: as xs:string}'
+  'math:pi#0':
+  	'prefix': 'pi'
+  	'body': 'math:pi()${1: as xs:double}'
+  'math:exp#1':
+  	'prefix': 'exp'
+  	'body': 'math:exp(${1:\$arg as xs:double?})${2: as xs:double?}'
+  'math:exp10#1':
+  	'prefix': 'exp10'
+  	'body': 'math:exp10(${1:\$arg as xs:double?})${2: as xs:double?}'
+  'math:log#1':
+  	'prefix': 'log'
+  	'body': 'math:log(${1:\$arg as xs:double?})${2: as xs:double?}'
+  'math:log10#1':
+  	'prefix': 'log10'
+  	'body': 'math:log10(${1:\$arg as xs:double?})${2: as xs:double?}'
+  'math:pow#2':
+  	'prefix': 'pow'
+  	'body': 'math:pow(${1:\$x as xs:double?}, ${2:\$y as numeric})${3: as xs:double?}'
+  'math:sqrt#1':
+  	'prefix': 'sqrt'
+  	'body': 'math:sqrt(${1:\$arg as xs:double?})${2: as xs:double?}'
+  'math:sin#1':
+  	'prefix': 'sin'
+  	'body': 'math:sin(${1:\$ as xs:double?})${2: as xs:double?}'
+  'math:cos#1':
+  	'prefix': 'cos'
+  	'body': 'math:cos(${1:\$ as xs:double?})${2: as xs:double?}'
+  'math:tan#1':
+  	'prefix': 'tan'
+  	'body': 'math:tan(${1:\$ as xs:double?})${2: as xs:double?}'
+  'math:asin#1':
+  	'prefix': 'asin'
+  	'body': 'math:asin(${1:\$arg as xs:double?})${2: as xs:double?}'
+  'math:acos#1':
+  	'prefix': 'acos'
+  	'body': 'math:acos(${1:\$arg as xs:double?})${2: as xs:double?}'
+  'math:atan#1':
+  	'prefix': 'atan'
+  	'body': 'math:atan(${1:\$arg as xs:double?})${2: as xs:double?}'
+  'math:atan2#2':
+  	'prefix': 'atan2'
+  	'body': 'math:atan2(${1:\$y as xs:double}, ${2:\$x as xs:double})${3: as xs:double}'
+  'fn:codepoints-to-string#1':
+  	'prefix': 'codepoints-to-string'
+  	'body': 'fn:codepoints-to-string(${1:\$arg as xs:integer*})${2: as xs:string}'
+  'fn:string-to-codepoints#1':
+  	'prefix': 'string-to-codepoints'
+  	'body': 'fn:string-to-codepoints(${1:\$arg as xs:string?})${2: as xs:integer*}'
+  'fn:compare#3':
+  	'prefix': 'compare'
+  	'body': 'fn:compare(${1:\$comparand1 as xs:string?}, ${2:\$comparand2 as xs:string?}, ${3:\$collation as xs:string})${4: as xs:integer?}'
+  'fn:codepoint-equal#2':
+  	'prefix': 'codepoint-equal'
+  	'body': 'fn:codepoint-equal(${1:\$comparand1 as xs:string?}, ${2:\$comparand2 as xs:string?})${3: as xs:boolean?}'
+  'fn:concat#2':
+  	'prefix': 'concat'
+  	'body': 'fn:concat(${1:\$arg1 as xs:anyAtomicType?}, ${2:\$arg2 as xs:anyAtomicType?})${3: as xs:string}'
+  'fn:string-join#2':
+  	'prefix': 'string-join'
+  	'body': 'fn:string-join(${1:\$arg1 as xs:string*}, ${2:\$arg2 as xs:string})${3: as xs:string}'
+  'fn:substring#3':
+  	'prefix': 'substring'
+  	'body': 'fn:substring(${1:\$sourceString as xs:string?}, ${2:\$start as xs:double}, ${3:\$length as xs:double})${4: as xs:string}'
+  'fn:string-length#1':
+  	'prefix': 'string-length'
+  	'body': 'fn:string-length(${1:\$arg as xs:string?})${2: as xs:integer}'
+  'fn:normalize-space#1':
+  	'prefix': 'normalize-space'
+  	'body': 'fn:normalize-space(${1:\$arg as xs:string?})${2: as xs:string}'
+  'fn:normalize-unicode#2':
+  	'prefix': 'normalize-unicode'
+  	'body': 'fn:normalize-unicode(${1:\$arg as xs:string?}, ${2:\$normalizationForm as xs:string})${3: as xs:string}'
+  'fn:upper-case#1':
+  	'prefix': 'upper-case'
+  	'body': 'fn:upper-case(${1:\$arg as xs:string?})${2: as xs:string}'
+  'fn:lower-case#1':
+  	'prefix': 'lower-case'
+  	'body': 'fn:lower-case(${1:\$arg as xs:string?})${2: as xs:string}'
+  'fn:translate#3':
+  	'prefix': 'translate'
+  	'body': 'fn:translate(${1:\$arg as xs:string?}, ${2:\$mapString as xs:string}, ${3:\$transString as xs:string})${4: as xs:string}'
+  'fn:contains#3':
+  	'prefix': 'contains'
+  	'body': 'fn:contains(${1:\$arg1 as xs:string?}, ${2:\$arg2 as xs:string?}, ${3:\$collation as xs:string})${4: as xs:boolean}'
+  'fn:starts-with#3':
+  	'prefix': 'starts-with'
+  	'body': 'fn:starts-with(${1:\$arg1 as xs:string?}, ${2:\$arg2 as xs:string?}, ${3:\$collation as xs:string})${4: as xs:boolean}'
+  'fn:ends-with#3':
+  	'prefix': 'ends-with'
+  	'body': 'fn:ends-with(${1:\$arg1 as xs:string?}, ${2:\$arg2 as xs:string?}, ${3:\$collation as xs:string})${4: as xs:boolean}'
+  'fn:substring-before#3':
+  	'prefix': 'substring-before'
+  	'body': 'fn:substring-before(${1:\$arg1 as xs:string?}, ${2:\$arg2 as xs:string?}, ${3:\$collation as xs:string})${4: as xs:string}'
+  'fn:substring-after#3':
+  	'prefix': 'substring-after'
+  	'body': 'fn:substring-after(${1:\$arg1 as xs:string?}, ${2:\$arg2 as xs:string?}, ${3:\$collation as xs:string})${4: as xs:string}'
+  'fn:matches#3':
+  	'prefix': 'matches'
+  	'body': 'fn:matches(${1:\$input as xs:string?}, ${2:\$pattern as xs:string}, ${3:\$flags as xs:string})${4: as xs:boolean}'
+  'fn:replace#4':
+  	'prefix': 'replace'
+  	'body': 'fn:replace(${1:\$input as xs:string?}, ${2:\$pattern as xs:string}, ${3:\$replacement as xs:string}, ${4:\$flags as xs:string})${5: as xs:string}'
+  'fn:tokenize#3':
+  	'prefix': 'tokenize'
+  	'body': 'fn:tokenize(${1:\$input as xs:string?}, ${2:\$pattern as xs:string}, ${3:\$flags as xs:string})${4: as xs:string*}'
+  'fn:analyze-string#3':
+  	'prefix': 'analyze-string'
+  	'body': 'fn:analyze-string(${1:\$input as xs:string?}, ${2:\$pattern as xs:string}, ${3:\$flags as xs:string})${4: as element(fn:analyze-string-result)}'
+  'fn:resolve-uri#2':
+  	'prefix': 'resolve-uri'
+  	'body': 'fn:resolve-uri(${1:\$relative as xs:string?}, ${2:\$base as xs:string})${3: as xs:anyURI?}'
+  'fn:encode-for-uri#1':
+  	'prefix': 'encode-for-uri'
+  	'body': 'fn:encode-for-uri(${1:\$uri-part as xs:string?})${2: as xs:string}'
+  'fn:iri-to-uri#1':
+  	'prefix': 'iri-to-uri'
+  	'body': 'fn:iri-to-uri(${1:\$iri as xs:string?})${2: as xs:string}'
+  'fn:escape-html-uri#1':
+  	'prefix': 'escape-html-uri'
+  	'body': 'fn:escape-html-uri(${1:\$uri as xs:string?})${2: as xs:string}'
+  'fn:true#0':
+  	'prefix': 'true'
+  	'body': 'fn:true()${1: as xs:boolean}'
+  'fn:false#0':
+  	'prefix': 'false'
+  	'body': 'fn:false()${1: as xs:boolean}'
+  'op:boolean-equal#2':
+  	'prefix': 'boolean-equal'
+  	'body': 'op:boolean-equal(${1:\$value1 as xs:boolean}, ${2:\$value2 as xs:boolean})${3: as xs:boolean}'
+  'op:boolean-less-than#2':
+  	'prefix': 'boolean-less-than'
+  	'body': 'op:boolean-less-than(${1:\$arg1 as xs:boolean}, ${2:\$arg2 as xs:boolean})${3: as xs:boolean}'
+  'op:boolean-greater-than#2':
+  	'prefix': 'boolean-greater-than'
+  	'body': 'op:boolean-greater-than(${1:\$arg1 as xs:boolean}, ${2:\$arg2 as xs:boolean})${3: as xs:boolean}'
+  'fn:boolean#1':
+  	'prefix': 'boolean'
+  	'body': 'fn:boolean(${1:\$arg as item()*})${2: as xs:boolean}'
+  'fn:not#1':
+  	'prefix': 'not'
+  	'body': 'fn:not(${1:\$arg as item()*})${2: as xs:boolean}'
+  'op:yearMonthDuration-less-than#2':
+  	'prefix': 'yearMonthDuration-less-than'
+  	'body': 'op:yearMonthDuration-less-than(${1:\$arg1 as xs:yearMonthDuration}, ${2:\$arg2 as xs:yearMonthDuration})${3: as xs:boolean}'
+  'op:yearMonthDuration-greater-than#2':
+  	'prefix': 'yearMonthDuration-greater-than'
+  	'body': 'op:yearMonthDuration-greater-than(${1:\$arg1 as xs:yearMonthDuration}, ${2:\$arg2 as xs:yearMonthDuration})${3: as xs:boolean}'
+  'op:dayTimeDuration-less-than#2':
+  	'prefix': 'dayTimeDuration-less-than'
+  	'body': 'op:dayTimeDuration-less-than(${1:\$arg1 as xs:dayTimeDuration}, ${2:\$arg2 as xs:dayTimeDuration})${3: as xs:boolean}'
+  'op:dayTimeDuration-greater-than#2':
+  	'prefix': 'dayTimeDuration-greater-than'
+  	'body': 'op:dayTimeDuration-greater-than(${1:\$arg1 as xs:dayTimeDuration}, ${2:\$arg2 as xs:dayTimeDuration})${3: as xs:boolean}'
+  'op:duration-equal#2':
+  	'prefix': 'duration-equal'
+  	'body': 'op:duration-equal(${1:\$arg1 as xs:duration}, ${2:\$arg2 as xs:duration})${3: as xs:boolean}'
+  'fn:years-from-duration#1':
+  	'prefix': 'years-from-duration'
+  	'body': 'fn:years-from-duration(${1:\$arg as xs:duration?})${2: as xs:integer?}'
+  'fn:months-from-duration#1':
+  	'prefix': 'months-from-duration'
+  	'body': 'fn:months-from-duration(${1:\$arg as xs:duration?})${2: as xs:integer?}'
+  'fn:days-from-duration#1':
+  	'prefix': 'days-from-duration'
+  	'body': 'fn:days-from-duration(${1:\$arg as xs:duration?})${2: as xs:integer?}'
+  'fn:hours-from-duration#1':
+  	'prefix': 'hours-from-duration'
+  	'body': 'fn:hours-from-duration(${1:\$arg as xs:duration?})${2: as xs:integer?}'
+  'fn:minutes-from-duration#1':
+  	'prefix': 'minutes-from-duration'
+  	'body': 'fn:minutes-from-duration(${1:\$arg as xs:duration?})${2: as xs:integer?}'
+  'fn:seconds-from-duration#1':
+  	'prefix': 'seconds-from-duration'
+  	'body': 'fn:seconds-from-duration(${1:\$arg as xs:duration?})${2: as xs:decimal?}'
+  'op:add-yearMonthDurations#2':
+  	'prefix': 'add-yearMonthDurations'
+  	'body': 'op:add-yearMonthDurations(${1:\$arg1 as xs:yearMonthDuration}, ${2:\$arg2 as xs:yearMonthDuration})${3: as xs:yearMonthDuration}'
+  'op:subtract-yearMonthDurations#2':
+  	'prefix': 'subtract-yearMonthDurations'
+  	'body': 'op:subtract-yearMonthDurations(${1:\$arg1 as xs:yearMonthDuration}, ${2:\$arg2 as xs:yearMonthDuration})${3: as xs:yearMonthDuration}'
+  'op:multiply-yearMonthDuration#2':
+  	'prefix': 'multiply-yearMonthDuration'
+  	'body': 'op:multiply-yearMonthDuration(${1:\$arg1 as xs:yearMonthDuration}, ${2:\$arg2 as xs:double})${3: as xs:yearMonthDuration}'
+  'op:divide-yearMonthDuration#2':
+  	'prefix': 'divide-yearMonthDuration'
+  	'body': 'op:divide-yearMonthDuration(${1:\$arg1 as xs:yearMonthDuration}, ${2:\$arg2 as xs:double})${3: as xs:yearMonthDuration}'
+  'op:divide-yearMonthDuration-by-yearMonthDuration#2':
+  	'prefix': 'divide-yearMonthDuration-by-yearMonthDuration'
+  	'body': 'op:divide-yearMonthDuration-by-yearMonthDuration(${1:\$arg1 as xs:yearMonthDuration}, ${2:\$arg2 as xs:yearMonthDuration})${3: as xs:decimal}'
+  'op:add-dayTimeDurations#2':
+  	'prefix': 'add-dayTimeDurations'
+  	'body': 'op:add-dayTimeDurations(${1:\$arg1 as xs:dayTimeDuration}, ${2:\$arg2 as xs:dayTimeDuration})${3: as xs:dayTimeDuration}'
+  'op:subtract-dayTimeDurations#2':
+  	'prefix': 'subtract-dayTimeDurations'
+  	'body': 'op:subtract-dayTimeDurations(${1:\$arg1 as xs:dayTimeDuration}, ${2:\$arg2 as xs:dayTimeDuration})${3: as xs:dayTimeDuration}'
+  'op:multiply-dayTimeDuration#2':
+  	'prefix': 'multiply-dayTimeDuration'
+  	'body': 'op:multiply-dayTimeDuration(${1:\$arg1 as xs:dayTimeDuration}, ${2:\$arg2 as xs:double})${3: as xs:dayTimeDuration}'
+  'op:divide-dayTimeDuration#2':
+  	'prefix': 'divide-dayTimeDuration'
+  	'body': 'op:divide-dayTimeDuration(${1:\$arg1 as xs:dayTimeDuration}, ${2:\$arg2 as xs:double})${3: as xs:dayTimeDuration}'
+  'op:divide-dayTimeDuration-by-dayTimeDuration#2':
+  	'prefix': 'divide-dayTimeDuration-by-dayTimeDuration'
+  	'body': 'op:divide-dayTimeDuration-by-dayTimeDuration(${1:\$arg1 as xs:dayTimeDuration}, ${2:\$arg2 as xs:dayTimeDuration})${3: as xs:decimal}'
+  'fn:dateTime#2':
+  	'prefix': 'dateTime'
+  	'body': 'fn:dateTime(${1:\$arg1 as xs:date?}, ${2:\$arg2 as xs:time?})${3: as xs:dateTime?}'
+  'op:dateTime-equal#2':
+  	'prefix': 'dateTime-equal'
+  	'body': 'op:dateTime-equal(${1:\$arg1 as xs:dateTime}, ${2:\$arg2 as xs:dateTime})${3: as xs:boolean}'
+  'op:dateTime-less-than#2':
+  	'prefix': 'dateTime-less-than'
+  	'body': 'op:dateTime-less-than(${1:\$arg1 as xs:dateTime}, ${2:\$arg2 as xs:dateTime})${3: as xs:boolean}'
+  'op:dateTime-greater-than#2':
+  	'prefix': 'dateTime-greater-than'
+  	'body': 'op:dateTime-greater-than(${1:\$arg1 as xs:dateTime}, ${2:\$arg2 as xs:dateTime})${3: as xs:boolean}'
+  'op:date-equal#2':
+  	'prefix': 'date-equal'
+  	'body': 'op:date-equal(${1:\$arg1 as xs:date}, ${2:\$arg2 as xs:date})${3: as xs:boolean}'
+  'op:date-less-than#2':
+  	'prefix': 'date-less-than'
+  	'body': 'op:date-less-than(${1:\$arg1 as xs:date}, ${2:\$arg2 as xs:date})${3: as xs:boolean}'
+  'op:date-greater-than#2':
+  	'prefix': 'date-greater-than'
+  	'body': 'op:date-greater-than(${1:\$arg1 as xs:date}, ${2:\$arg2 as xs:date})${3: as xs:boolean}'
+  'op:time-equal#2':
+  	'prefix': 'time-equal'
+  	'body': 'op:time-equal(${1:\$arg1 as xs:time}, ${2:\$arg2 as xs:time})${3: as xs:boolean}'
+  'op:time-less-than#2':
+  	'prefix': 'time-less-than'
+  	'body': 'op:time-less-than(${1:\$arg1 as xs:time}, ${2:\$arg2 as xs:time})${3: as xs:boolean}'
+  'op:time-greater-than#2':
+  	'prefix': 'time-greater-than'
+  	'body': 'op:time-greater-than(${1:\$arg1 as xs:time}, ${2:\$arg2 as xs:time})${3: as xs:boolean}'
+  'op:gYearMonth-equal#2':
+  	'prefix': 'gYearMonth-equal'
+  	'body': 'op:gYearMonth-equal(${1:\$arg1 as xs:gYearMonth}, ${2:\$arg2 as xs:gYearMonth})${3: as xs:boolean}'
+  'op:gYear-equal#2':
+  	'prefix': 'gYear-equal'
+  	'body': 'op:gYear-equal(${1:\$arg1 as xs:gYear}, ${2:\$arg2 as xs:gYear})${3: as xs:boolean}'
+  'op:gMonthDay-equal#2':
+  	'prefix': 'gMonthDay-equal'
+  	'body': 'op:gMonthDay-equal(${1:\$arg1 as xs:gMonthDay}, ${2:\$arg2 as xs:gMonthDay})${3: as xs:boolean}'
+  'op:gMonth-equal#2':
+  	'prefix': 'gMonth-equal'
+  	'body': 'op:gMonth-equal(${1:\$arg1 as xs:gMonth}, ${2:\$arg2 as xs:gMonth})${3: as xs:boolean}'
+  'op:gDay-equal#2':
+  	'prefix': 'gDay-equal'
+  	'body': 'op:gDay-equal(${1:\$arg1 as xs:gDay}, ${2:\$arg2 as xs:gDay})${3: as xs:boolean}'
+  'fn:year-from-dateTime#1':
+  	'prefix': 'year-from-dateTime'
+  	'body': 'fn:year-from-dateTime(${1:\$arg as xs:dateTime?})${2: as xs:integer?}'
+  'fn:month-from-dateTime#1':
+  	'prefix': 'month-from-dateTime'
+  	'body': 'fn:month-from-dateTime(${1:\$arg as xs:dateTime?})${2: as xs:integer?}'
+  'fn:day-from-dateTime#1':
+  	'prefix': 'day-from-dateTime'
+  	'body': 'fn:day-from-dateTime(${1:\$arg as xs:dateTime?})${2: as xs:integer?}'
+  'fn:hours-from-dateTime#1':
+  	'prefix': 'hours-from-dateTime'
+  	'body': 'fn:hours-from-dateTime(${1:\$arg as xs:dateTime?})${2: as xs:integer?}'
+  'fn:minutes-from-dateTime#1':
+  	'prefix': 'minutes-from-dateTime'
+  	'body': 'fn:minutes-from-dateTime(${1:\$arg as xs:dateTime?})${2: as xs:integer?}'
+  'fn:seconds-from-dateTime#1':
+  	'prefix': 'seconds-from-dateTime'
+  	'body': 'fn:seconds-from-dateTime(${1:\$arg as xs:dateTime?})${2: as xs:decimal?}'
+  'fn:timezone-from-dateTime#1':
+  	'prefix': 'timezone-from-dateTime'
+  	'body': 'fn:timezone-from-dateTime(${1:\$arg as xs:dateTime?})${2: as xs:dayTimeDuration?}'
+  'fn:year-from-date#1':
+  	'prefix': 'year-from-date'
+  	'body': 'fn:year-from-date(${1:\$arg as xs:date?})${2: as xs:integer?}'
+  'fn:month-from-date#1':
+  	'prefix': 'month-from-date'
+  	'body': 'fn:month-from-date(${1:\$arg as xs:date?})${2: as xs:integer?}'
+  'fn:day-from-date#1':
+  	'prefix': 'day-from-date'
+  	'body': 'fn:day-from-date(${1:\$arg as xs:date?})${2: as xs:integer?}'
+  'fn:timezone-from-date#1':
+  	'prefix': 'timezone-from-date'
+  	'body': 'fn:timezone-from-date(${1:\$arg as xs:date?})${2: as xs:dayTimeDuration?}'
+  'fn:hours-from-time#1':
+  	'prefix': 'hours-from-time'
+  	'body': 'fn:hours-from-time(${1:\$arg as xs:time?})${2: as xs:integer?}'
+  'fn:minutes-from-time#1':
+  	'prefix': 'minutes-from-time'
+  	'body': 'fn:minutes-from-time(${1:\$arg as xs:time?})${2: as xs:integer?}'
+  'fn:seconds-from-time#1':
+  	'prefix': 'seconds-from-time'
+  	'body': 'fn:seconds-from-time(${1:\$arg as xs:time?})${2: as xs:decimal?}'
+  'fn:timezone-from-time#1':
+  	'prefix': 'timezone-from-time'
+  	'body': 'fn:timezone-from-time(${1:\$arg as xs:time?})${2: as xs:dayTimeDuration?}'
+  'fn:adjust-dateTime-to-timezone#2':
+  	'prefix': 'adjust-dateTime-to-timezone'
+  	'body': 'fn:adjust-dateTime-to-timezone(${1:\$arg as xs:dateTime?}, ${2:\$timezone as xs:dayTimeDuration?})${3: as xs:dateTime?}'
+  'fn:adjust-date-to-timezone#2':
+  	'prefix': 'adjust-date-to-timezone'
+  	'body': 'fn:adjust-date-to-timezone(${1:\$arg as xs:date?}, ${2:\$timezone as xs:dayTimeDuration?})${3: as xs:date?}'
+  'fn:adjust-time-to-timezone#2':
+  	'prefix': 'adjust-time-to-timezone'
+  	'body': 'fn:adjust-time-to-timezone(${1:\$arg as xs:time?}, ${2:\$timezone as xs:dayTimeDuration?})${3: as xs:time?}'
+  'op:subtract-dateTimes#2':
+  	'prefix': 'subtract-dateTimes'
+  	'body': 'op:subtract-dateTimes(${1:\$arg1 as xs:dateTime}, ${2:\$arg2 as xs:dateTime})${3: as xs:dayTimeDuration}'
+  'op:subtract-dates#2':
+  	'prefix': 'subtract-dates'
+  	'body': 'op:subtract-dates(${1:\$arg1 as xs:date}, ${2:\$arg2 as xs:date})${3: as xs:dayTimeDuration}'
+  'op:subtract-times#2':
+  	'prefix': 'subtract-times'
+  	'body': 'op:subtract-times(${1:\$arg1 as xs:time}, ${2:\$arg2 as xs:time})${3: as xs:dayTimeDuration}'
+  'op:add-yearMonthDuration-to-dateTime#2':
+  	'prefix': 'add-yearMonthDuration-to-dateTime'
+  	'body': 'op:add-yearMonthDuration-to-dateTime(${1:\$arg1 as xs:dateTime}, ${2:\$arg2 as xs:yearMonthDuration})${3: as xs:dateTime}'
+  'op:add-dayTimeDuration-to-dateTime#2':
+  	'prefix': 'add-dayTimeDuration-to-dateTime'
+  	'body': 'op:add-dayTimeDuration-to-dateTime(${1:\$arg1 as xs:dateTime}, ${2:\$arg2 as xs:dayTimeDuration})${3: as xs:dateTime}'
+  'op:subtract-yearMonthDuration-from-dateTime#2':
+  	'prefix': 'subtract-yearMonthDuration-from-dateTime'
+  	'body': 'op:subtract-yearMonthDuration-from-dateTime(${1:\$arg1 as xs:dateTime}, ${2:\$arg2 as xs:yearMonthDuration})${3: as xs:dateTime}'
+  'op:subtract-dayTimeDuration-from-dateTime#2':
+  	'prefix': 'subtract-dayTimeDuration-from-dateTime'
+  	'body': 'op:subtract-dayTimeDuration-from-dateTime(${1:\$arg1 as xs:dateTime}, ${2:\$arg2 as xs:dayTimeDuration})${3: as xs:dateTime}'
+  'op:add-yearMonthDuration-to-date#2':
+  	'prefix': 'add-yearMonthDuration-to-date'
+  	'body': 'op:add-yearMonthDuration-to-date(${1:\$arg1 as xs:date}, ${2:\$arg2 as xs:yearMonthDuration})${3: as xs:date}'
+  'op:add-dayTimeDuration-to-date#2':
+  	'prefix': 'add-dayTimeDuration-to-date'
+  	'body': 'op:add-dayTimeDuration-to-date(${1:\$arg1 as xs:date}, ${2:\$arg2 as xs:dayTimeDuration})${3: as xs:date}'
+  'op:subtract-yearMonthDuration-from-date#2':
+  	'prefix': 'subtract-yearMonthDuration-from-date'
+  	'body': 'op:subtract-yearMonthDuration-from-date(${1:\$arg1 as xs:date}, ${2:\$arg2 as xs:yearMonthDuration})${3: as xs:date}'
+  'op:subtract-dayTimeDuration-from-date#2':
+  	'prefix': 'subtract-dayTimeDuration-from-date'
+  	'body': 'op:subtract-dayTimeDuration-from-date(${1:\$arg1 as xs:date}, ${2:\$arg2 as xs:dayTimeDuration})${3: as xs:date}'
+  'op:add-dayTimeDuration-to-time#2':
+  	'prefix': 'add-dayTimeDuration-to-time'
+  	'body': 'op:add-dayTimeDuration-to-time(${1:\$arg1 as xs:time}, ${2:\$arg2 as xs:dayTimeDuration})${3: as xs:time}'
+  'op:subtract-dayTimeDuration-from-time#2':
+  	'prefix': 'subtract-dayTimeDuration-from-time'
+  	'body': 'op:subtract-dayTimeDuration-from-time(${1:\$arg1 as xs:time}, ${2:\$arg2 as xs:dayTimeDuration})${3: as xs:time}'
+  'fn:format-dateTime#5':
+  	'prefix': 'format-dateTime'
+  	'body': 'fn:format-dateTime(${1:\$value as xs:dateTime?}, ${2:\$picture as xs:string}, ${3:\$language as xs:string?}, ${4:\$calendar as xs:string?}, ${5:\$place as xs:string?})${6: as xs:string?}'
+  'fn:format-date#5':
+  	'prefix': 'format-date'
+  	'body': 'fn:format-date(${1:\$value as xs:date?}, ${2:\$picture as xs:string}, ${3:\$language as xs:string?}, ${4:\$calendar as xs:string?}, ${5:\$place as xs:string?})${6: as xs:string?}'
+  'fn:format-time#5':
+  	'prefix': 'format-time'
+  	'body': 'fn:format-time(${1:\$value as xs:time?}, ${2:\$picture as xs:string}, ${3:\$language as xs:string?}, ${4:\$calendar as xs:string?}, ${5:\$place as xs:string?})${6: as xs:string?}'
+  'fn:resolve-QName#2':
+  	'prefix': 'resolve-QName'
+  	'body': 'fn:resolve-QName(${1:\$qname as xs:string?}, ${2:\$element as element()})${3: as xs:QName?}'
+  'fn:QName#2':
+  	'prefix': 'QName'
+  	'body': 'fn:QName(${1:\$paramURI as xs:string?}, ${2:\$paramQName as xs:string})${3: as xs:QName}'
+  'op:QName-equal#2':
+  	'prefix': 'QName-equal'
+  	'body': 'op:QName-equal(${1:\$arg1 as xs:QName}, ${2:\$arg2 as xs:QName})${3: as xs:boolean}'
+  'fn:prefix-from-QName#1':
+  	'prefix': 'prefix-from-QName'
+  	'body': 'fn:prefix-from-QName(${1:\$arg as xs:QName?})${2: as xs:NCName?}'
+  'fn:local-name-from-QName#1':
+  	'prefix': 'local-name-from-QName'
+  	'body': 'fn:local-name-from-QName(${1:\$arg as xs:QName?})${2: as xs:NCName?}'
+  'fn:namespace-uri-from-QName#1':
+  	'prefix': 'namespace-uri-from-QName'
+  	'body': 'fn:namespace-uri-from-QName(${1:\$arg as xs:QName?})${2: as xs:anyURI?}'
+  'fn:namespace-uri-for-prefix#2':
+  	'prefix': 'namespace-uri-for-prefix'
+  	'body': 'fn:namespace-uri-for-prefix(${1:\$prefix as xs:string?}, ${2:\$element as element()})${3: as xs:anyURI?}'
+  'fn:in-scope-prefixes#1':
+  	'prefix': 'in-scope-prefixes'
+  	'body': 'fn:in-scope-prefixes(${1:\$element as element()})${2: as xs:string*}'
+  'op:hexBinary-equal#2':
+  	'prefix': 'hexBinary-equal'
+  	'body': 'op:hexBinary-equal(${1:\$value1 as xs:hexBinary}, ${2:\$value2 as xs:hexBinary})${3: as xs:boolean}'
+  'op:base64Binary-equal#2':
+  	'prefix': 'base64Binary-equal'
+  	'body': 'op:base64Binary-equal(${1:\$value1 as xs:base64Binary}, ${2:\$value2 as xs:base64Binary})${3: as xs:boolean}'
+  'op:NOTATION-equal#2':
+  	'prefix': 'NOTATION-equal'
+  	'body': 'op:NOTATION-equal(${1:\$arg1 as xs:NOTATION}, ${2:\$arg2 as xs:NOTATION})${3: as xs:boolean}'
+  'fn:name#1':
+  	'prefix': 'name'
+  	'body': 'fn:name(${1:\$arg as node()?})${2: as xs:string}'
+  'fn:local-name#1':
+  	'prefix': 'local-name'
+  	'body': 'fn:local-name(${1:\$arg as node()?})${2: as xs:string}'
+  'fn:namespace-uri#1':
+  	'prefix': 'namespace-uri'
+  	'body': 'fn:namespace-uri(${1:\$arg as node()?})${2: as xs:anyURI}'
+  'fn:lang#2':
+  	'prefix': 'lang'
+  	'body': 'fn:lang(${1:\$testlang as xs:string?}, ${2:\$node as node()})${3: as xs:boolean}'
+  'op:is-same-node#2':
+  	'prefix': 'is-same-node'
+  	'body': 'op:is-same-node(${1:\$arg1 as node()}, ${2:\$arg2 as node()})${3: as xs:boolean}'
+  'op:node-before#2':
+  	'prefix': 'node-before'
+  	'body': 'op:node-before(${1:\$arg1 as node()}, ${2:\$arg2 as node()})${3: as xs:boolean}'
+  'op:node-after#2':
+  	'prefix': 'node-after'
+  	'body': 'op:node-after(${1:\$arg1 as node()}, ${2:\$arg2 as node()})${3: as xs:boolean}'
+  'fn:root#1':
+  	'prefix': 'root'
+  	'body': 'fn:root(${1:\$arg as node()?})${2: as node()}'
+  'fn:path#1':
+  	'prefix': 'path'
+  	'body': 'fn:path(${1:\$arg as node()?})${2: as xs:string?}'
+  'fn:has-children#1':
+  	'prefix': 'has-children'
+  	'body': 'fn:has-children(${1:\$node as node()?})${2: as xs:boolean}'
+  'fn:innermost#1':
+  	'prefix': 'innermost'
+  	'body': 'fn:innermost(${1:\$nodes as node()*})${2: as node()*}'
+  'fn:outermost#1':
+  	'prefix': 'outermost'
+  	'body': 'fn:outermost(${1:\$nodes as node()*})${2: as node()*}'
+  'op:concatenate#2':
+  	'prefix': 'concatenate'
+  	'body': 'op:concatenate(${1:\$seq1 as item()*}, ${2:\$seq2 as item()*})${3: as item()*}'
+  'fn:empty#1':
+  	'prefix': 'empty'
+  	'body': 'fn:empty(${1:\$arg as item()*})${2: as xs:boolean}'
+  'fn:exists#1':
+  	'prefix': 'exists'
+  	'body': 'fn:exists(${1:\$arg as item()*})${2: as xs:boolean}'
+  'fn:head#1':
+  	'prefix': 'head'
+  	'body': 'fn:head(${1:\$arg as item()*})${2: as item()?}'
+  'fn:tail#1':
+  	'prefix': 'tail'
+  	'body': 'fn:tail(${1:\$arg as item()*})${2: as item()*}'
+  'fn:insert-before#3':
+  	'prefix': 'insert-before'
+  	'body': 'fn:insert-before(${1:\$target as item()*}, ${2:\$position as xs:integer}, ${3:\$inserts as item()*})${4: as item()*}'
+  'fn:remove#2':
+  	'prefix': 'remove'
+  	'body': 'fn:remove(${1:\$target as item()*}, ${2:\$position as xs:integer})${3: as item()*}'
+  'fn:reverse#1':
+  	'prefix': 'reverse'
+  	'body': 'fn:reverse(${1:\$arg as item()*})${2: as item()*}'
+  'fn:subsequence#3':
+  	'prefix': 'subsequence'
+  	'body': 'fn:subsequence(${1:\$sourceSeq as item()*}, ${2:\$startingLoc as xs:double}, ${3:\$length as xs:double})${4: as item()*}'
+  'fn:unordered#1':
+  	'prefix': 'unordered'
+  	'body': 'fn:unordered(${1:\$sourceSeq as item()*})${2: as item()*}'
+  'fn:distinct-values#2':
+  	'prefix': 'distinct-values'
+  	'body': 'fn:distinct-values(${1:\$arg as xs:anyAtomicType*}, ${2:\$collation as xs:string})${3: as xs:anyAtomicType*}'
+  'fn:index-of#3':
+  	'prefix': 'index-of'
+  	'body': 'fn:index-of(${1:\$seq as xs:anyAtomicType*}, ${2:\$search as xs:anyAtomicType}, ${3:\$collation as xs:string})${4: as xs:integer*}'
+  'fn:deep-equal#3':
+  	'prefix': 'deep-equal'
+  	'body': 'fn:deep-equal(${1:\$parameter1 as item()*}, ${2:\$parameter2 as item()*}, ${3:\$collation as xs:string})${4: as xs:boolean}'
+  'fn:zero-or-one#1':
+  	'prefix': 'zero-or-one'
+  	'body': 'fn:zero-or-one(${1:\$arg as item()*})${2: as item()?}'
+  'fn:one-or-more#1':
+  	'prefix': 'one-or-more'
+  	'body': 'fn:one-or-more(${1:\$arg as item()*})${2: as item()+}'
+  'fn:exactly-one#1':
+  	'prefix': 'exactly-one'
+  	'body': 'fn:exactly-one(${1:\$arg as item()*})${2: as item()}'
+  'op:union#2':
+  	'prefix': 'union'
+  	'body': 'op:union(${1:\$arg1 as node()*}, ${2:\$arg2 as node()*})${3: as node()*}'
+  'op:intersect#2':
+  	'prefix': 'intersect'
+  	'body': 'op:intersect(${1:\$arg1 as node()*}, ${2:\$arg2 as node()*})${3: as node()*}'
+  'op:except#2':
+  	'prefix': 'except'
+  	'body': 'op:except(${1:\$arg1 as node()*}, ${2:\$arg2 as node()*})${3: as node()*}'
+  'fn:count#1':
+  	'prefix': 'count'
+  	'body': 'fn:count(${1:\$arg as item()*})${2: as xs:integer}'
+  'fn:avg#1':
+  	'prefix': 'avg'
+  	'body': 'fn:avg(${1:\$arg as xs:anyAtomicType*})${2: as xs:anyAtomicType?}'
+  'fn:max#2':
+  	'prefix': 'max'
+  	'body': 'fn:max(${1:\$arg as xs:anyAtomicType*}, ${2:\$collation as xs:string})${3: as xs:anyAtomicType?}'
+  'fn:min#2':
+  	'prefix': 'min'
+  	'body': 'fn:min(${1:\$arg as xs:anyAtomicType*}, ${2:\$collation as xs:string})${3: as xs:anyAtomicType?}'
+  'fn:sum#2':
+  	'prefix': 'sum'
+  	'body': 'fn:sum(${1:\$arg as xs:anyAtomicType*}, ${2:\$zero as xs:anyAtomicType?})${3: as xs:anyAtomicType}'
+  'op:to#2':
+  	'prefix': 'to'
+  	'body': 'op:to(${1:\$firstval as xs:integer}, ${2:\$lastval as xs:integer})${3: as xs:integer*}'
+  'fn:id#2':
+  	'prefix': 'id'
+  	'body': 'fn:id(${1:\$arg as xs:string*}, ${2:\$node as node()})${3: as element()*}'
+  'fn:element-with-id#2':
+  	'prefix': 'element-with-id'
+  	'body': 'fn:element-with-id(${1:\$arg as xs:string*}, ${2:\$node as node()})${3: as element()*}'
+  'fn:idref#2':
+  	'prefix': 'idref'
+  	'body': 'fn:idref(${1:\$arg as xs:string*}, ${2:\$node as node()})${3: as node()*}'
+  'fn:generate-id#1':
+  	'prefix': 'generate-id'
+  	'body': 'fn:generate-id(${1:\$arg as node()?})${2: as xs:string}'
+  'fn:doc#1':
+  	'prefix': 'doc'
+  	'body': 'fn:doc(${1:\$uri as xs:string?})${2: as document-node()?}'
+  'fn:doc-available#1':
+  	'prefix': 'doc-available'
+  	'body': 'fn:doc-available(${1:\$uri as xs:string?})${2: as xs:boolean}'
+  'fn:collection#1':
+  	'prefix': 'collection'
+  	'body': 'fn:collection(${1:\$arg as xs:string?})${2: as node()*}'
+  'fn:uri-collection#1':
+  	'prefix': 'uri-collection'
+  	'body': 'fn:uri-collection(${1:\$arg as xs:string?})${2: as xs:anyURI*}'
+  'fn:unparsed-text#2':
+  	'prefix': 'unparsed-text'
+  	'body': 'fn:unparsed-text(${1:\$href as xs:string?}, ${2:\$encoding as xs:string})${3: as xs:string?}'
+  'fn:unparsed-text-lines#2':
+  	'prefix': 'unparsed-text-lines'
+  	'body': 'fn:unparsed-text-lines(${1:\$href as xs:string?}, ${2:\$encoding as xs:string})${3: as xs:string*}'
+  'fn:unparsed-text-available#2':
+  	'prefix': 'unparsed-text-available'
+  	'body': 'fn:unparsed-text-available(${1:\$href as xs:string?}, ${2:\$encoding as xs:string})${3: as xs:boolean}'
+  'fn:environment-variable#1':
+  	'prefix': 'environment-variable'
+  	'body': 'fn:environment-variable(${1:\$name as xs:string})${2: as xs:string?}'
+  'fn:available-environment-variables#0':
+  	'prefix': 'available-environment-variables'
+  	'body': 'fn:available-environment-variables()${1: as xs:string*}'
+  'fn:parse-xml#1':
+  	'prefix': 'parse-xml'
+  	'body': 'fn:parse-xml(${1:\$arg as xs:string?})${2: as document-node(element(*))?}'
+  'fn:parse-xml-fragment#1':
+  	'prefix': 'parse-xml-fragment'
+  	'body': 'fn:parse-xml-fragment(${1:\$arg as xs:string?})${2: as document-node()?}'
+  'fn:serialize#2':
+  	'prefix': 'serialize'
+  	'body': 'fn:serialize(${1:\$arg as item()*}, ${2:\$params as element(output:serialization-parameters)?})${3: as xs:string}'
+  'fn:position#0':
+  	'prefix': 'position'
+  	'body': 'fn:position()${1: as xs:integer}'
+  'fn:last#0':
+  	'prefix': 'last'
+  	'body': 'fn:last()${1: as xs:integer}'
+  'fn:current-dateTime#0':
+  	'prefix': 'current-dateTime'
+  	'body': 'fn:current-dateTime()${1: as xs:dateTimeStamp}'
+  'fn:current-date#0':
+  	'prefix': 'current-date'
+  	'body': 'fn:current-date()${1: as xs:date}'
+  'fn:current-time#0':
+  	'prefix': 'current-time'
+  	'body': 'fn:current-time()${1: as xs:time}'
+  'fn:implicit-timezone#0':
+  	'prefix': 'implicit-timezone'
+  	'body': 'fn:implicit-timezone()${1: as xs:dayTimeDuration}'
+  'fn:default-collation#0':
+  	'prefix': 'default-collation'
+  	'body': 'fn:default-collation()${1: as xs:string}'
+  'fn:static-base-uri#0':
+  	'prefix': 'static-base-uri'
+  	'body': 'fn:static-base-uri()${1: as xs:anyURI?}'
+  'fn:function-lookup#2':
+  	'prefix': 'function-lookup'
+  	'body': 'fn:function-lookup(${1:\$name as xs:QName}, ${2:\$arity as xs:integer})${3: as function(*)?}'
+  'fn:function-name#1':
+  	'prefix': 'function-name'
+  	'body': 'fn:function-name(${1:\$func as function(*)})${2: as xs:QName?}'
+  'fn:function-arity#1':
+  	'prefix': 'function-arity'
+  	'body': 'fn:function-arity(${1:\$func as function(*)})${2: as xs:integer}'
+  'fn:for-each#2':
+  	'prefix': 'for-each'
+  	'body': 'fn:for-each(${1:\$seq as item()*}, ${2:\$f as function(item()) as item()*})${3: as item()*}'
+  'fn:filter#2':
+  	'prefix': 'filter'
+  	'body': 'fn:filter(${1:\$seq as item()*}, ${2:\$f as function(item()) as xs:boolean})${3: as item()*}'
+  'fn:fold-left#3':
+  	'prefix': 'fold-left'
+  	'body': 'fn:fold-left(${1:\$seq as item()*}, ${2:\$zero as item()*}, ${3:\$f as function(item()*, item()) as item()*})${4: as item()*}'
+  'fn:fold-right#3':
+  	'prefix': 'fold-right'
+  	'body': 'fn:fold-right(${1:\$seq as item()*}, ${2:\$zero as item()*}, ${3:\$f as function(item()*, item()) as item()*})${4: as item()*}'
+  'fn:for-each-pair#3':
+  	'prefix': 'for-each-pair'
+  	'body': 'fn:for-each-pair(${1:\$seq1 as item()*}, ${2:\$seq2 as item()*}, ${3:\$f as function(item(), item()) as item()*})${4: as item()*}'
