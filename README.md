@@ -1,5 +1,10 @@
 # Atom XQuery Language
 
+In favour of [language-jsoniq](https://github.com/wcandillon/language-jsoniq)
+this package is deprecated.
+
+---
+
 This package offers
  * XQuery Syntax highlighting
  * Snippets abbreviations
